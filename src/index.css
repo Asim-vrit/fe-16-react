@@ -1,0 +1,9 @@
+.header ul {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+}
+
+.test {
+  background-color: aliceblue;
+}
