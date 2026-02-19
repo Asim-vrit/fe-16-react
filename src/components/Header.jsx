@@ -1,4 +1,5 @@
 import "./header.css";
+import { Card } from "./Main";
 let headerStyle = { backgroundColor: "white" };
 export default function Header() {
   return (
@@ -10,6 +11,7 @@ export default function Header() {
           <li>contact</li>
         </ul>
       </nav>
+      <Card />
     </header>
   );
 }
