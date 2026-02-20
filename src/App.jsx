@@ -4,7 +4,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 
 function App() {
-  const [state, setState] = useState();
+  const [state, setState] = useState("home");
 
   function showHome() {
     setState("home");
@@ -20,13 +20,14 @@ function App() {
       <header>
         <nav>
           <ul>
-            <li onClick={showHome}>Home</li> <li onClick={showAbout}>About</li>{" "}
+            <li onClick={showHome}>Home</li>
+            <li onClick={showAbout}>About</li>{" "}
             <li onClick={showContact}>Contact</li>
           </ul>
         </nav>
       </header>
 
-      {state === "home" && <Home />}
+      {state === "home" && <Home showAbout={showAbout} state={state} />}
       {state === "about" && <About />}
       {state === "contact" && <Contact />}
     </>
