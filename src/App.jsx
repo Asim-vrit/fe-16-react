@@ -5,6 +5,7 @@ import Contact from "./pages/Contact";
 
 function App() {
   const [state, setState] = useState("home");
+  const [cart, setCart] = useState([]);
 
   function showHome() {
     setState("home");
@@ -25,9 +26,10 @@ function App() {
             <li onClick={showContact}>Contact</li>
           </ul>
         </nav>
+        cart: {cart.length}
       </header>
 
-      {state === "home" && <Home showAbout={showAbout} state={state} />}
+      {state === "home" && <Home cart={cart} setCart={setCart} />}
       {state === "about" && <About />}
       {state === "contact" && <Contact />}
     </>
