@@ -9,6 +9,21 @@ function Contact() {
     phone: "",
     desc: "",
   });
+  async function submitUser(data) {
+    try {
+      const res = await fetch("https://fakestoreapi.com/users", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) {
+        throw new Error(await res.text(data));
+      }
+      await res.json();
+    } catch (error) {
+      console.log(error);
+    }
+  }
   function onSubmit() {
     const data = {
       email: emailRef.current.value,
@@ -25,7 +40,7 @@ function Contact() {
         return { ...prev, phone: "Please enter a phone number" };
       });
     }
-    console.log(data);
+    submitUser(data);
   }
   console.log("hello i am being re-rendered");
   return (
