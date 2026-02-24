@@ -2,9 +2,10 @@ import { useState } from "react";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import Users from "./pages/Users";
 
 function App() {
-  const [state, setState] = useState("home");
+  const [state, setState] = useState("users");
   const [cart, setCart] = useState([]);
 
   function showHome() {
@@ -32,6 +33,7 @@ function App() {
       {state === "home" && <Home cart={cart} setCart={setCart} />}
       {state === "about" && <About />}
       {state === "contact" && <Contact />}
+      {state === "users" && <Users />}
     </>
   );
 }

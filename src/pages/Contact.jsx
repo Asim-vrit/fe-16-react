@@ -31,15 +31,14 @@ function Contact() {
       desc: descRef.current.value,
     };
     if (!data.email) {
-      setFormErrors((prev) => {
-        return { ...prev, email: "Please enter email" };
-      });
+      setFormErrors({ ...formErrors, email: "Please enter email" });
     }
+    console.log(formErrors);
     if (!data.phone) {
-      setFormErrors((prev) => {
-        return { ...prev, phone: "Please enter a phone number" };
-      });
+      setFormErrors({ ...formErrors, phone: "Please enter a phone number" });
     }
+    console.log(formErrors);
+
     submitUser(data);
   }
   console.log("hello i am being re-rendered");
