@@ -7,8 +7,11 @@ let initFormState = {
 function Users() {
   const [users, setUsers] = useState([]);
   const [userForm, setUserform] = useState(initFormState);
+  const [loading, setLoading] = useState(false);
+  const [submitLoading, setSubmitLoading] = useState(false);
   async function getUsers() {
     try {
+      setLoading(true);
       const res = await fetch("https://fakestoreapi.com/users");
       if (!res.ok) {
         let errorText = await res.text();
@@ -18,10 +21,13 @@ function Users() {
       setUsers(data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   }
   async function postUsers(postData) {
     try {
+      setSubmitLoading(true);
       let res;
       if (userForm.id) {
         res = await fetch("https://fakestoreapi.com/users/" + userForm.id, {
@@ -40,8 +46,11 @@ function Users() {
         throw new Error(errorText);
       }
       setUserform(initFormState);
+      await getUsers();
     } catch (error) {
       console.log(error);
+    } finally {
+      setSubmitLoading(false);
     }
   }
   async function onDelete(user) {
@@ -50,6 +59,7 @@ function Users() {
         method: "DELETE",
       });
       console.log(user.name.firstname, "deleted");
+      await getUsers();
     } catch (error) {
       console.log(error);
     }
@@ -110,14 +120,22 @@ function Users() {
           />
         </label>
       </div>
-      <button onClick={onSubmit}>{userForm.id ? "Update" : "Submit"}</button>
-      {users.map((user) => (
-        <div key={user.id}>
-          {user.email}
-          <button onClick={() => onDelete(user)}> Delete</button>{" "}
-          <button onClick={() => onEditClick(user)}>Edit</button>
-        </div>
-      ))}
+      <button disabled={submitLoading} onClick={onSubmit}>
+        {userForm.id ? "Update" : "Submit"}
+      </button>
+      {loading ? (
+        <div>Loading.....</div>
+      ) : (
+        <>
+          {users.map((user) => (
+            <div key={user.id}>
+              {user.email}
+              <button onClick={() => onDelete(user)}> Delete</button>{" "}
+              <button onClick={() => onEditClick(user)}>Edit</button>
+            </div>
+          ))}
+        </>
+      )}
     </div>
   );
 }
